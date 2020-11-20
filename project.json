@@ -1,0 +1,20 @@
+{
+    "debugMode" : 1,
+    "showFPS" : true,
+    "frameRate" : 60,
+    "id" : "gameCanvas",
+    "renderMode" : 0,
+    "engineDir":"../../frameworks/cocos2d-html5",
+
+    "modules" : ["cocos2d"],
+
+    "jsList" : [
+        "src/Resource.js",
+        "src/GameLayer.js",
+        "src/SysMenu.js",
+        "src/King.js",
+        "src/GameConfig.js",
+        "src/PhysicsEngine.js",
+        "src/Wall.js"
+    ]
+}
