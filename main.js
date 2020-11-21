@@ -79,7 +79,7 @@
 cc.game.onStart = function(){
     cc.view.enableRetina(false);
     cc.view.adjustViewPort(true);
-    cc.view.setDesignResolutionSize(480,720,cc.ResolutionPolicy.SHOW_ALL);
+    cc.view.setDesignResolutionSize(1440,1080,cc.ResolutionPolicy.SHOW_ALL);
     cc.view.resizeWithBrowserSize(true);
     cc.director.setProjection(cc.Director.PROJECTION_2D);
     if (cc.sys.isNative) {
@@ -93,7 +93,9 @@ cc.game.onStart = function(){
     }
     //load resources
     cc.LoaderScene.preload(g_mainmenu, function () {
-        cc.director.runScene(SysMenu.getScene());
+        var scene = new cc.Scene();
+        scene.addChild(new GameLayer());
+        cc.director.runScene(scene);
         //cc.director.runScene(PhysicsEngine.getScene());
     }, this);
 };

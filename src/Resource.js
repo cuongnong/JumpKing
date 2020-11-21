@@ -1,8 +1,11 @@
 
 
 var res = {
-    king: "res/king.png",
-    map: "res/map1.png",
+    king: "res/images/king1.png",
+    map: ["res/images/MAP1.png",
+        "res/images/MAP2.png",
+        "res/images/MAP3.png",
+            ],
     menu: "res/menu.png"
 };
 

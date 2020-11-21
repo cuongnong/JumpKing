@@ -1,10 +1,10 @@
 {
     "init_cfg":{
-       "isLandscape": false,
+       "isLandscape": true,
        "isWindowTop": false,
        "name": "DemoGame",
-       "width": 640,
-       "height": 960,
+       "width": 1440,
+       "height": 1080,
        "entry": "main.js",
        "consolePort": 6050,
        "uploadPort": 6060,

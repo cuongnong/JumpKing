@@ -18,4 +18,5 @@ MW.POS = {
     STAND: 1,
     DESCENTING: 2,
     ASCENDING: 8,
-}
+};
+MW.JUMP_POWER = 1250;
