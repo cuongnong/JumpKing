@@ -15,6 +15,7 @@
         "src/King.js",
         "src/GameConfig.js",
         "src/PhysicsEngine.js",
-        "src/Wall.js"
+        "src/Wall.js",
+        "src/GameKing.js"
     ]
 }

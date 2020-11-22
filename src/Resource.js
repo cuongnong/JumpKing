@@ -2,11 +2,18 @@
 
 var res = {
     king: "res/images/king1.png",
+    king2: "res/images/king2.png",
+    king3: "res/images/king3.png",
+    king4: "res/images/king4.png",
     map: ["res/images/MAP1.png",
         "res/images/MAP2.png",
         "res/images/MAP3.png",
             ],
-    menu: "res/menu.png"
+    menu: "res/menu.png",
+    fire1: "res/images/fire1.png",
+    fire2: "res/images/fire2.png",
+    fire3: "res/images/fire3.png"
+
 };
 
 var g_mainmenu = [

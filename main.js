@@ -96,7 +96,7 @@ cc.game.onStart = function(){
         var scene = new cc.Scene();
         scene.addChild(new GameLayer());
         cc.director.runScene(scene);
-        //cc.director.runScene(PhysicsEngine.getScene());
+        //cc.director.runScene(GameKing.getScene());
     }, this);
 };
 

@@ -12,6 +12,7 @@ var GameLayer = cc.Layer.extend({
         this._king = new King(cc.p(720,800), this.space);
 
         this.addChild(this._king);
+        //this.addAnimation();
     },
     update: function (dt) {
         this.space.step(dt);
@@ -76,22 +77,29 @@ var GameLayer = cc.Layer.extend({
             }
             ,this);
     },
+    addAnimation: function () {
+        var animationFrames = [];
+        var spriteFrame = new cc.SpriteFrame(res.king);
+        var animationFrame = new cc.AnimationFrame();
+        animationFrame.initWithSpriteFrame(spriteFrame, 1, null);
+        animationFrames.push(animationFrame);
+        spriteFrame = new cc.SpriteFrame(res.king2);
+        animationFrame = new cc.AnimationFrame();
+        animationFrame.initWithSpriteFrame(spriteFrame, 1, null);
+        animationFrames.push(animationFrame);
+        spriteFrame = new cc.SpriteFrame(res.king3);
+        animationFrame = new cc.AnimationFrame();
+        animationFrame.initWithSpriteFrame(spriteFrame, 1, null);
+        animationFrames.push(animationFrame);
+        spriteFrame = new cc.SpriteFrame(res.king4);
+        animationFrame = new cc.AnimationFrame();
+        animationFrame.initWithSpriteFrame(spriteFrame, 1, null);
+        animationFrames.push(animationFrame);
 
-    //addBody: function (posX, posY, width, height, isDynamic, spriteImage, type) {
-    //    if(isDynamic){
-    //        var body = new cp.Body(1, cp.momentForBox(1, width, height));
-    //    }else{
-    //        var body = new cp.Body(Infinity, Infinity);
-    //    }
-    //    body.setPos(cp.v(posX, posY));
-    //    if(isDynamic){
-    //        this.space.addBody(body);
-    //    }
-    //    var shape = new cp.BoxShape(body, width, height);
-    //    shape.setFriction(BOTTOM_FRICTION);
-    //    shape.setElasticity(0);
-    //    shape.name = type;
-    //
-    //    this.space.addShape(shape);
-    //},
+        var animation = cc.Animation(animationFrames, 0.08);
+        var action = cc.Animate(animation);
+        this._king.runAction(action.repeatForever());
+
+    }
+
 });

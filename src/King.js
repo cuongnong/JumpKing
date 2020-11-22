@@ -6,11 +6,12 @@ var King = cc.PhysicsSprite.extend({
     _lastPos: null,
     _posStatus: null,
     _body: null,
+    _action: null,
     ctor: function ( pos, space) {
         this._super(res.king);
+        this.addAnimation();
         var _height = 60;
         var _width = 60;
-
         var body = new cp.Body(1 , Infinity);
         body.setPos( pos );
         space.addBody( body );
@@ -31,10 +32,10 @@ var King = cc.PhysicsSprite.extend({
         this._posStatus = MW.POS.STAND;
 
         this.schedule(this.update);
+
     },
     update: function(dt){
         this.updatePosition(dt);
-        this.updateAnimation(dt);
 
         // neu dang nhay -> khong the di chuyen
         if(this._state == MW.STATE.STAND){
@@ -57,6 +58,7 @@ var King = cc.PhysicsSprite.extend({
 
     },
     updatePosition: function (dt) {
+
         switch(this._state){
             case MW.STATE.STAND:
                 var kingBody = this._body;
@@ -72,8 +74,7 @@ var King = cc.PhysicsSprite.extend({
                     //cc.log("body " + body.getPos().x + " + " + body.getPos().y);
 
                 }else if(MW.KEYS[cc.KEY.right] && this.x <= cc.winSize.width - this._speed - 30){
-                    this.setPosition(cc.p(this.x + this._speed, this.y));
-
+                    this.moveToRight();
                 }
                 break;
             case MW.STATE.JUMP:
@@ -108,8 +109,36 @@ var King = cc.PhysicsSprite.extend({
         this._state = MW.STATE.JUMPING;
         this._posStatus = MW.POS.ASCENDING;
     },
-    updateAnimation: function () {
+    addAnimation: function () {
+        this._action = [];
+        var animationFrames = [];
+        var spriteFrame = new cc.SpriteFrame(res.king, cc.rect(0, 0, 30, 30));
+        var animationFrame = new cc.AnimationFrame();
+        animationFrame.initWithSpriteFrame(spriteFrame, 1, null);
+        animationFrames.push(animationFrame);
+        spriteFrame = new cc.SpriteFrame(res.king2, cc.rect(0, 0, 30, 30));
+        animationFrame = new cc.AnimationFrame();
+        animationFrame.initWithSpriteFrame(spriteFrame, 1, null);
+        animationFrames.push(animationFrame);
+        spriteFrame = new cc.SpriteFrame(res.king3, cc.rect(0, 0, 30, 30));
+        animationFrame = new cc.AnimationFrame();
+        animationFrame.initWithSpriteFrame(spriteFrame, 1, null);
+        animationFrames.push(animationFrame);
+        spriteFrame = new cc.SpriteFrame(res.king4, cc.rect(0, 0, 30, 30));
+        animationFrame = new cc.AnimationFrame();
+        animationFrame.initWithSpriteFrame(spriteFrame, 1, null);
+        animationFrames.push(animationFrame);
+        var animation = new cc.Animation(animationFrames, 0.08);
+        var action = new cc.Animate(animation);
+        animation.retain();
+        action.retain();
+        this._action.push(action);
 
+    },
+    moveToRight: function () {
+        this.setPosition(cc.p(this.x + this._speed, this.y));
+        if(this._action[0]){
+            this.runAction(this._action[0]);
+        }
     }
-
 })

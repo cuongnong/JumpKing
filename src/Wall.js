@@ -17,6 +17,21 @@ var Wall = cc.Layer.extend({
         cc.log(MAPS.length + "--------------------------------------------------");
         this.loadBackground(0);
         this.setupDebugNode();
+        this.loadAnimation(0)
+    },
+    loadAnimation: function (level) {
+        switch (level){
+            case 0:
+                var fire = new cc.Sprite(res.fire3);
+                fire.setPosition(cc.p(510,135));
+                //var actionTo = cc.skewTo(0.1, 10, -10);
+                //var actionBack = cc.skewTo(0.1, 0, 0);
+                //var action = cc.sequence(actionTo, actionBack);
+                var action = cc.blink(2, 6);
+                fire.runAction(action.repeatForever());
+                this.addChild(fire, -1);
+                break;
+        }
     },
 
     loadBackground: function (level) {
@@ -24,7 +39,7 @@ var Wall = cc.Layer.extend({
         backgroundImage.setAnchorPoint(cc.p(0,0));
         //backgroundImage.setScale(cc.winSize.height/backgroundImage.height);
         backgroundImage.setScalesPageToFit = true;
-        this.addChild(backgroundImage, -1);
+        this.addChild(backgroundImage, -2);
         var leftWall = new cp.SegmentShape(this.space.staticBody, cp.v(0, cc.winSize.height), cp.v(0,0), WALLS_WIDTH);
         leftWall.setFriction(SIDES_FRICTION);
         leftWall.setElasticity(SIDES_ELASTICITY);
