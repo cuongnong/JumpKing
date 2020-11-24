@@ -6,8 +6,10 @@ var MW = MW || {};
 MW.KEYS = [];
 MW.STATE = {
     STAND: 1,
-    JUMP: 2,
-    JUMPING: 3
+    MOVE: 2,
+    JUMP: 3,
+    JUMPING: 4,
+
 };
 MW.DIRECTION = {
     UP: 1,
@@ -17,6 +19,8 @@ MW.DIRECTION = {
 MW.POS = {
     STAND: 1,
     DESCENTING: 2,
-    ASCENDING: 8,
+    ASCENDING: 3,
 };
 MW.JUMP_POWER = 1250;
+
+MW.COUNTER = 6;

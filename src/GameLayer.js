@@ -6,20 +6,14 @@ var GameLayer = cc.Layer.extend({
         this.addKeyboardEvent();
         this.addMouseEvent();
         this.initPhysics();
-
         this.addWallsAndGround();
         this.scheduleUpdate();
         this._king = new King(cc.p(720,800), this.space);
+        this.addChild(this._king, 1);
 
-        this.addChild(this._king);
-        //this.addAnimation();
     },
     update: function (dt) {
         this.space.step(dt);
-    },
-    initPhysics: function () {
-        this.space = new cp.Space();
-        this.space.gravity = cp.v(0, -1800);
     },
     addWallsAndGround: function () {
         var wall = new Wall(this.space);
@@ -36,14 +30,19 @@ var GameLayer = cc.Layer.extend({
                         switch (key){
                             case cc.KEY.space:
                                 MW.KEYS[cc.KEY.space] = true;
+                                self._king.updateAnimation();
+                                self._king._direction = MW.DIRECTION.UP;
                                 break;
                             case cc.KEY.left:
                                 MW.KEYS[cc.KEY.left] = true;
+                                self._king._direction = MW.DIRECTION.LEFT;
                                 break;
                             case cc.KEY.right:
                                 MW.KEYS[cc.KEY.right] = true;
+                                self._king._direction = MW.DIRECTION.RIGHT;
                                 break;
                         }
+                    self._king.updateAnimation();
                     //}
                 },
                 onKeyReleased: function (key, event) {
@@ -58,11 +57,16 @@ var GameLayer = cc.Layer.extend({
                             break;
                         case cc.KEY.left:
                             MW.KEYS[cc.KEY.left] = false;
+                            //self._king._direction = MW.DIRECTION.LEFT;
+                            //self._king._state = MW.STATE.STAND;
                             break;
                         case cc.KEY.right:
                             MW.KEYS[cc.KEY.right] = false;
+                            //self._king._direction = MW.DIRECTION.RIGHT;
+                            //self._king._state = MW.STATE.STAND;
                             break;
                     }
+                    self._king.updateAnimation();
                 }
             }, this);
         }
@@ -77,29 +81,9 @@ var GameLayer = cc.Layer.extend({
             }
             ,this);
     },
-    addAnimation: function () {
-        var animationFrames = [];
-        var spriteFrame = new cc.SpriteFrame(res.king);
-        var animationFrame = new cc.AnimationFrame();
-        animationFrame.initWithSpriteFrame(spriteFrame, 1, null);
-        animationFrames.push(animationFrame);
-        spriteFrame = new cc.SpriteFrame(res.king2);
-        animationFrame = new cc.AnimationFrame();
-        animationFrame.initWithSpriteFrame(spriteFrame, 1, null);
-        animationFrames.push(animationFrame);
-        spriteFrame = new cc.SpriteFrame(res.king3);
-        animationFrame = new cc.AnimationFrame();
-        animationFrame.initWithSpriteFrame(spriteFrame, 1, null);
-        animationFrames.push(animationFrame);
-        spriteFrame = new cc.SpriteFrame(res.king4);
-        animationFrame = new cc.AnimationFrame();
-        animationFrame.initWithSpriteFrame(spriteFrame, 1, null);
-        animationFrames.push(animationFrame);
 
-        var animation = cc.Animation(animationFrames, 0.08);
-        var action = cc.Animate(animation);
-        this._king.runAction(action.repeatForever());
-
-    }
-
+    initPhysics: function () {
+        this.space = new cp.Space();
+        this.space.gravity = cp.v(0, -1800);
+    },
 });

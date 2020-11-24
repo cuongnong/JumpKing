@@ -12,7 +12,10 @@ var res = {
     menu: "res/menu.png",
     fire1: "res/images/fire1.png",
     fire2: "res/images/fire2.png",
-    fire3: "res/images/fire3.png"
+    fire3: "res/images/fire3.png",
+    jump1: "res/images/jump1.png",
+    jump2: "res/images/jump2.png",
+    jump3: "res/images/jump3.png",
 
 };
 

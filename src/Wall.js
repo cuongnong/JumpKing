@@ -1,7 +1,7 @@
 /**
  * Created by cuong on 11/19/2020.
  */
-var UPPERS_FRICTION = 10000000000;
+var UPPERS_FRICTION = 999999999999999;
 var UPPERS_ELASTICITY = 0;
 var SIDES_FRICTION = 0.1;
 var SIDES_ELASTICITY = 0.6;
@@ -62,14 +62,34 @@ var Wall = cc.Layer.extend({
     loadMap: function () {
         var singleMap = [];
         //map level 0
-        var wall = new cp.SegmentShape(this.space.staticBody, new cp.v(0, 81), new cp.v(cc.winSize.width, 81), WALLS_WIDTH);
-        wall.setFriction(UPPERS_FRICTION);
-        wall.setElasticity(UPPERS_ELASTICITY);
+        singleMap.push(this.addSegmentShape(new cp.v(0, 81), new cp.v(cc.winSize.width, 81), 0));
+        singleMap.push(this.addSegmentShape(new cp.v(0, 514), new cp.v(382, 514), 0));
+        singleMap.push(this.addSegmentShape(new cp.v(382, 0), new cp.v(382, 513), 1));
+        singleMap.push(this.addSegmentShape(new cp.v(1056, 0), new cp.v(1056, 514), 1));
+        singleMap.push(this.addSegmentShape(new cp.v(1056, 514), new cp.v(cc.winSize.width, 514), 0));
 
-        singleMap.push(wall);
+        singleMap.push(this.addSegmentShape(new cp.v(556, 808), new cp.v(556, 948), 1));
+        singleMap.push(this.addSegmentShape(new cp.v(556, 948), new cp.v(880, 948), 0));
+        singleMap.push(this.addSegmentShape(new cp.v(880, 948), new cp.v(880, 808), 1));
+        singleMap.push(this.addSegmentShape(new cp.v(880, 808), new cp.v(556, 808), 0));
+
         MAPS.push(singleMap);
-    }
-    ,addBody: function (posX, posY, width, height, isDynamic, spriteImage, type) {
+    },
+    addSegmentShape: function (bd, kt, type) {
+        var friction = UPPERS_FRICTION;
+        var elasticity = UPPERS_ELASTICITY;
+        var wall = new cp.SegmentShape(this.space.staticBody, bd, kt, WALLS_WIDTH);
+        if( type == 1){ //set friction and elasticity for side walls
+            friction = SIDES_FRICTION;
+            elasticity = SIDES_ELASTICITY;
+        }
+        wall.setGravity = false;
+        wall.setFriction(friction);
+        wall.setElasticity(elasticity);
+
+        return wall;
+    },
+    addBody: function (posX, posY, width, height, isDynamic, spriteImage, type) {
         if(isDynamic){
             var body = new cp.Body(1, cp.momentForBox(1, width, height));
         }else{
